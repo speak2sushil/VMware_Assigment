@@ -9,7 +9,9 @@
 - Right Click on the file and Run as Java Application
 
 Examples 
+
 POST http://localhost:8080/api/generate
+
 Request
  {
 
@@ -22,16 +24,28 @@ Request
 Response - task:3a48fc3e-19cd-4c1b-826f-f603e6c03fe7    
 
 Request GET localhost:8080/api/tasks/3a48fc3e-19cd-4c1b-826f-f603e6c03fe7/status  
+
 Response
+
+   
+
 {
-    "result": "SUCCESS"
-}   
+
+             "result": "SUCCESS"
+
+            }
 
 Request GET localhost:8080/api/tasks/3a48fc3e-19cd-4c1b-826f-f603e6c03fe7?action=get_numlist
+
 Response 
+
+
+
 {
-    "result": "80,78,76,74,72,70,68,66,64,62,60,58,56,54,52,50,48,46,44,42,40,38,36,34,32,30,28,26,24,22,20,18,16,14,12,10,8,6,4,2,0"
-}
+
+              "result": "80,78,76,74,72,70,68,66,64,62,60,58,56,54,52,50,48,46,44,42,40,38,36,34,32,30,28,26,24,22,20,18,16,14,12,10,8,6,4,2,0"
+
+            }
 
 ## Resources and URI Mappings
 
