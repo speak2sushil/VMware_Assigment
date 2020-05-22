@@ -8,7 +8,17 @@
 - Choose the Spring Boot Application file (search for @SpringBootApplication)
 - Right Click on the file and Run as Java Application
 
-##Resources and URI Mappings
+POST http://localhost:8080/api/generate
+
+ {
+
+               "Goal":50,
+
+               "Step":2
+
+            }
+
+## Resources and URI Mappings
 
 Create a Task - POST /api/generate -> 
 
