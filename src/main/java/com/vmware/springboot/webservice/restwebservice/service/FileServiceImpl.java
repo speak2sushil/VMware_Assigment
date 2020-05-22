@@ -31,41 +31,38 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public UUID writeToFile(TaskRequest taskRequest, UUID taskId) {
-        try {
-            CompletableFuture.supplyAsync(() -> {
-                LOGGER.info("Started async call {} ");
-                cache.put(taskId.toString(), "IN_PROGRESS");
-                File file = new File(baseFolder
-                        + taskId + taskSuffix
-                );
+        CompletableFuture.supplyAsync(() -> {
+            LOGGER.info("Started async call {} ");
+            cache.put(taskId.toString(), "IN_PROGRESS");
+            File file = new File(baseFolder
+                    + taskId + taskSuffix
+            );
 
-                FileWriter writer = null;
-                try {
-                    writer = new FileWriter(file);
+            FileWriter writer = null;
+            try {
+                writer = new FileWriter(file);
 
-                    for (int i = taskRequest.getGoal(); i >= 0; i = i - taskRequest.getStep()) {
-                        //Thread.sleep(4000);
-                        writer.write(String.valueOf(i) + "\n");
-                    }
-                    writer.close();
-                } catch (IOException e) {
-                    LOGGER.error(e.getMessage(), e.toString());
+                for (int i = taskRequest.getGoal(); i >= 0; i = i - taskRequest.getStep()) {
+                    //Thread.sleep(4000);
+                    writer.write(String.valueOf(i) + "\n");
                 }
-                return taskId;
-            }).whenComplete((result, ex) -> {
-                if (null != ex) {
-                    cache.put(taskId.toString(), "ERROR");
-                    LOGGER.error(ex.getMessage());
-                    ex.printStackTrace();
-                } else {
-                    cache.put(taskId.toString(), "SUCCESS");
+                writer.close();
+            } catch (IOException e) {
+                LOGGER.error(e.getMessage(), e.toString());
+            }
+            return taskId;
+        }).whenComplete((result, ex) -> {
+            if (null != ex) {
+                cache.put(taskId.toString(), "ERROR");
+                LOGGER.error(ex.getMessage());
+                ex.printStackTrace();
+            } else {
+                cache.put(taskId.toString(), "SUCCESS");
 
-                }
-                LOGGER.info("Processed async call {} ");
-            });
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e.toString());
-        }
+            }
+            LOGGER.info("Processed async call {} ");
+        });
+
         return taskId;
     }
 

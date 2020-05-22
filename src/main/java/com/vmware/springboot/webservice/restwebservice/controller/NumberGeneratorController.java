@@ -10,7 +10,6 @@ import com.vmware.springboot.webservice.restwebservice.service.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +21,6 @@ import javax.validation.Valid;
 public class NumberGeneratorController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NumberGeneratorController.class);
-
-    @Value("${app.rootDirectory}")
-    private String rootDirectory;
 
     @Autowired
     FileService fileService;
@@ -55,8 +51,7 @@ public class NumberGeneratorController {
 
     @GetMapping(value = "/api/tasks/{taskId}", produces = "application/json")
     public ResponseEntity<?> getTaskData(@PathVariable("taskId") String taskId, @RequestParam String action) {
-        System.out.println("action:::" + action);
-        if (fileService.isTaskAvailable(taskId) && fileService.getTaskStatus(taskId).equals("SUCCESS")) {
+        if (fileService.isTaskAvailable(taskId) && "get_numlist".equalsIgnoreCase(action)  && fileService.getTaskStatus(taskId).equals("SUCCESS")) {
             return new ResponseEntity<>(new TaskResponse(fileService.readFileInList(taskId).stream().collect(Collectors.joining(","))), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
