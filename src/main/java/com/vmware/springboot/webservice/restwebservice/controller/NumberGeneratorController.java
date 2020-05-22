@@ -27,11 +27,11 @@ public class NumberGeneratorController {
 
 
     @PostMapping("/api/generate")
-    public ResponseEntity<?> generateNumber(@Valid @RequestBody Map<String, Integer> inputMap) {
+    public ResponseEntity<?> generateNumber(@Valid @RequestBody TaskRequest taskRequest) {
         LOGGER.info("Started generateNumber request {} ");
-        TaskRequest taskRequest = new TaskRequest();
-        taskRequest.setGoal(inputMap.get("Goal"));
-        taskRequest.setStep(inputMap.get("Step"));
+//        TaskRequest taskRequest = new TaskRequest();
+//        taskRequest.setGoal(inputMap.get("Goal"));
+//        taskRequest.setStep(inputMap.get("Step"));
         UUID taskId = UUID.randomUUID();
         fileService.writeToFile(taskRequest, taskId);
         String createdTask = "task" + ":" + taskId;
