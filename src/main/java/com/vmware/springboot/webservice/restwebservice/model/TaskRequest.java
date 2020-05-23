@@ -10,6 +10,11 @@ public class TaskRequest implements Serializable {
     public TaskRequest() {
     }
 
+    public TaskRequest(Integer goal, Integer step) {
+        Goal = goal;
+        Step = step;
+    }
+
     public Integer getGoal() {
         return Goal;
     }

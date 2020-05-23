@@ -23,8 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class FileServiceImpl implements FileService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileServiceImpl.class);
-    private static String baseFolder = System.getProperty("user.home") + File.separator + "Desktop" + File.separator;
-    //private static String baseFolder="/tmp";
+    //private static String baseFolder = System.getProperty("user.home") + File.separator + "Desktop" + File.separator;
+    private static String baseFolder="/tmp";
     private static String taskSuffix = "_output.txt";
     Map<String, String> cache = new ConcurrentHashMap<>();
 
